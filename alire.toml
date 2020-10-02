@@ -1,0 +1,12 @@
+name = "uri_ada"
+description = "Processing of URI strings"
+version = "1.0.0"
+licenses = ["LGPL 3.0"]
+
+authors = ["Alejandro R. Mosteo"]
+maintainers = ["Alejandro R. Mosteo <alejandro@mosteo.com>"]
+maintainers-logins = ["mosteo"]
+
+tags = ["uri", "url", "utility"]
+
+project-files = ["uri.gpr"]

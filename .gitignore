@@ -1,6 +1,7 @@
 *.ali
 *.o
 
+alire/
 bin
 lib
 obj
