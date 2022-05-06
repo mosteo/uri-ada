@@ -66,4 +66,10 @@ package URI with Preelaborate is
    function Permissive_Path (This : String) return String
    is (Extract (This, Authority, Path));
 
+   subtype Authority_String is String;
+   function User (This : Authority_String) return String;
+   function Password (This : Authority_String) return String;
+   --  These operate on a previously extracted authority part, not a full URL.
+   --  They will return an empty string if the corresponding part is missing
+
 end URI;
