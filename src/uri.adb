@@ -1,4 +1,5 @@
 with Ada.Containers.Indefinite_Ordered_Maps;
+with Ada.Strings.Fixed;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 with GNAT.Regpat;
@@ -94,5 +95,55 @@ package body URI is
 
       return To_String (Slice);
    end Extract;
+
+   ----------------------
+   -- User_Or_Password --
+   ----------------------
+
+   function User_Or_Password (This : Authority_String; Return_User : Boolean)
+                              return String
+   is
+   begin
+
+      --  Early there is none
+
+      if not (for Some Char of This => Char = '@') then
+         return "";
+      end if;
+
+      declare
+         use Ada.Strings;
+         Both : constant String :=
+                  This (This'First .. Fixed.Index (This, "@") - 1);
+         Colon : constant Integer := Fixed.Index (Both, ":");
+
+         User  : constant String := (if Colon not in Both'Range
+                                     then Both
+                                     else Both (Both'First .. Colon - 1));
+         Pass  : constant String := (if Colon in Both'Range
+                                     then Both (Colon + 1 .. Both'Last)
+                                     else "");
+      begin
+         if Return_User then
+            return User;
+         else
+            return Pass;
+         end if;
+      end;
+   end User_Or_Password;
+
+   ----------
+   -- User --
+   ----------
+
+   function User (This : Authority_String) return String
+   is (User_Or_Password (This, True));
+
+   --------------
+   -- Password --
+   --------------
+
+   function Password (This : Authority_String) return String
+   is (User_Or_Password (This, False));
 
 end URI;

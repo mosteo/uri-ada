@@ -1,4 +1,5 @@
---  with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Assertions;
+with Ada.Text_IO; use Ada.Text_IO;
 
 procedure URI.Test is
    T_1 : constant String :=
@@ -92,5 +93,24 @@ begin
    pragma Assert (Extract (T_2, Scheme, Authority) = "urn");
    pragma Assert (Extract (T_2, Scheme, Path) = T_2);
    pragma Assert (Extract (T_2, Authority, Path) = "example:animal:ferret:nose");
+
+   --  User/Pass
+
+   pragma Assert (User (Extract ("https://nouser", Authority)) = "");
+   pragma Assert (User (Extract ("https://user@nopass", Authority)) = "user");
+   pragma Assert (User (Extract ("https://user:pass@nopass", Authority)) = "user");
+
+   pragma Assert (Password (Extract ("https://nouser", Authority)) = "");
+   pragma Assert (Password (Extract ("https://user@nopass", Authority)) = "");
+   pragma Assert (Password (Extract ("https://user:pass@nopass", Authority)) = "pass");
+
+   --  Ensure that assertions are being checked
+   begin
+      pragma Assert (False);
+      raise Program_Error;
+   exception
+      when Ada.Assertions.Assertion_Error =>
+         Put_Line ("OK");
+   end;
 
 end URI.Test;
