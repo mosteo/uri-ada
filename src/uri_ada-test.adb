@@ -1,7 +1,7 @@
 with Ada.Assertions;
 with Ada.Text_IO; use Ada.Text_IO;
 
-procedure URI.Test is
+procedure URI_Ada.Test is
    T_1 : constant String :=
            "http://anon:1234@www.dummy.com/highway/to/?sure&really#hell";
    T_2 : constant String := "urn:example:animal:ferret:nose";
@@ -113,4 +113,4 @@ begin
          Put_Line ("OK");
    end;
 
-end URI.Test;
+end URI_Ada.Test;

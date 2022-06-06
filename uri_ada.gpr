@@ -1,4 +1,4 @@
-project URI is
+project URI_Ada is
 
    for Create_Missing_Dirs use "True";
 
@@ -13,7 +13,7 @@ project URI is
 
    case Build_Mode is
       when "On_Demand" =>
-         for Main use ("uri-test.adb"
+         for Main use ("uri_ada-test.adb"
                       );
          for Object_Dir use "obj";
 
@@ -51,4 +51,4 @@ project URI is
       for Switches ("ada") use ("-g");
    end Linker;
 
-end URI;
+end URI_Ada;

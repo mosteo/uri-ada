@@ -4,7 +4,7 @@ with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 with GNAT.Regpat;
 
-package body URI is
+package body URI_Ada is
 
    package Part_Maps is
      new Ada.Containers.Indefinite_Ordered_Maps (Parts, String);
@@ -146,4 +146,4 @@ package body URI is
    function Password (This : Authority_String) return String
    is (User_Or_Password (This, False));
 
-end URI;
+end URI_Ada;
